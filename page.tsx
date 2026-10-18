@@ -1,17 +1,19 @@
-import { notFound } from "next/navigation";
-import { getLink, registerClick } from "@/lib/store";
-import RedirectClient from "./redirect-client";
+export const metadata = { title: "Privacy Policy" };
 
-export default async function SlugPage({
-  params
-}: {
-  params: { slug: string };
-}) {
-  const record = await getLink(params.slug);
-  if (!record) notFound();
-
-  // Fire-and-forget click count; never blocks the redirect.
-  registerClick(record.slug).catch(() => {});
-
-  return <RedirectClient destination={record.url} slug={record.slug} />;
+export default function PrivacyPage() {
+  return (
+    <div className="wrap">
+      <a href="/" className="wordmark">
+        url<b>.io</b>
+      </a>
+      <h1>Privacy Policy</h1>
+      <p className="lede">
+        URL.IO stores the destination URL, the short code, a creation
+        timestamp, and a click count for each link you create. We don't
+        require an account and don't collect personal information directly.
+        Pages on this site may show ads served by Google AdSense, which can
+        set its own cookies — see Google's policies for details on that data.
+      </p>
+    </div>
+  );
 }
